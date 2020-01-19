@@ -8,6 +8,7 @@ import { CommentList } from './styles';
 
 const CommentsList = (props) => {
   const { comments, isWishlist } = props;
+
   return (
     <CommentList>
       {comments && comments.map((item) => (

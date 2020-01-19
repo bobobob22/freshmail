@@ -8,6 +8,7 @@ export const Root = styled.div`
 
 export const NavigationList = styled.ul`
   display: flex;
+  padding: 0 15px;
 `;
 
 export const NavigationItem = styled.li`

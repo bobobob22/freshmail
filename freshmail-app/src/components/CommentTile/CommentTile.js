@@ -22,12 +22,13 @@ class CommentTile extends Component {
   };
 
   render() {
-    const { item: { name, email, body }, isWishlist } = this.props;
+    const { item: { name, email, body, isAdded }, isWishlist } = this.props;
 
     return (
       <CommentTileRoot>
         <CommentTileContent>
           <CommentTitle>
+            Nazwa:
             {name}
           </CommentTitle>
           <CommentInfo>
@@ -44,7 +45,7 @@ class CommentTile extends Component {
                 Usun z wybrancyh
               </WishListButton>
             ) : (
-              <WishListButton toggleWishList={this.addToWishList}>
+              <WishListButton toggleWishList={this.addToWishList} disabled={isAdded}>
                 Dodaj do wybranych
               </WishListButton>
             )}
@@ -59,7 +60,6 @@ class CommentTile extends Component {
 const mapStateToProps = (state) => ({
   comments: state.comment.comments,
   wishList: state.wishList,
-  isWishlist: PropTypes.bool,
 });
 
 const mapDispatchToProps = (dispatch) => ({

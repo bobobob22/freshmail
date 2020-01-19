@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions';
 import CommentsList from 'components/CommentsList';
 
+import { HomePageTitle } from './styles';
+
 
 class HomePage extends Component {
   componentDidMount() {
@@ -19,8 +21,8 @@ class HomePage extends Component {
     const { comments } = this.props;
     return (
       <>
-        <p>HomePage component</p>
-        <CommentsList comments={comments} />
+        <HomePageTitle>Lista pobranych komentarzy: </HomePageTitle>
+        <CommentsList comments={comments} isWishlist={false}/>
       </>
     );
   }

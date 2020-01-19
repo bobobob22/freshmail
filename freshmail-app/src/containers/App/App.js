@@ -21,9 +21,6 @@ const App = () => (
 
 export default App;
 
-
-//Todo -> filtorwanie zeby nie mozna było dodawać dwa razy tego samego do ulubionych
-//Todo -> przycisk disabled po wysłaniu formularzu i może przekierowanie do strony głównej
 //Todo -> Sprawdzenie formuka
 //Todo -> Sprawdzenie styled components
 //Todo sprawdzenie zbednych paczek

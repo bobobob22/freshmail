@@ -16,9 +16,15 @@ class WishListComments extends Component {
   render() {
     const { wishList } = this.props;
 
+    if (!wishList.length) {
+      return (
+        <p>Brak ulubionych komentarzy</p>
+      )
+    }
+
     return (
       <>
-        <p>Wishlist component</p>
+        <p>Ulubione komentarze</p>
         <CommentsList comments={wishList} isWishlist />
       </>
     );

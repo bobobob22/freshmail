@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 export const CommentTileRoot = styled.li`
   display: flex;
-  width: 50%;
   list-style-type: none;
+  width: 100%;
+  
+  @media all and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const CommentTileContent = styled.div`
@@ -28,4 +32,10 @@ export const CommentTitle = styled.h2`
 
 export const CommentInfo = styled.p`
   margin: 0 0 .5rem;
+  width: 100%;
+  font-size: .85rem;
+
+  @media all and (min-width: 768px) {
+    font-size: 1rem;
+  }
 `;

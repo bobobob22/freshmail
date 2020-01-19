@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import * as actions from 'store/actions';
+import {initComments, addComment } from 'store/actions';
 
-import { Root, StyledInput, StyledButton } from './styles';
+import { Root, StyledInput, StyledTextarea, StyledButton, ErrorMessage } from './styles';
 
 
 const schema = yup.object({
@@ -30,6 +31,10 @@ const schema = yup.object({
 });
 
 class AddComment extends PureComponent {
+  state = {
+    wasSend: false,
+  };
+
   componentDidMount() {
     const { comments, onInitComments } = this.props;
     if (comments && !comments.length) {
@@ -37,16 +42,18 @@ class AddComment extends PureComponent {
     }
   }
 
-  handleOnSubmit = (values, { setSubmitting }) => {
-    const { onAddComment } = this.props;
+  handleOnSubmit = (values, { setSubmitting, resetForm }) => {
+    const { onAddComment, history } = this.props;
     onAddComment(values);
+    resetForm();
     setSubmitting(false);
+    history.push('/');
   };
 
   render() {
     return (
       <Root>
-        <p>Dodaj nowy komentarz</p>
+        <h2>Dodaj nowy komentarz:</h2>
         <Formik
           initialValues={{
             name: '',
@@ -64,6 +71,9 @@ class AddComment extends PureComponent {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
+              <label htmlFor="name">
+                Nazwa
+              </label>
               <StyledInput
                 type="text"
                 name="name"
@@ -71,7 +81,12 @@ class AddComment extends PureComponent {
                 onBlur={handleBlur}
                 value={values.name}
               />
-              {errors.name && touched.name && errors.name}
+              <ErrorMessage>
+                {errors.name && touched.name && errors.name}
+              </ErrorMessage>
+              <label htmlFor="email">
+                Email
+              </label>
               <StyledInput
                 type="email"
                 name="email"
@@ -79,15 +94,31 @@ class AddComment extends PureComponent {
                 onBlur={handleBlur}
                 value={values.email}
               />
-              {errors.email && touched.email && errors.email}
-              <StyledInput
-                type="text"
-                name="body"
+              <ErrorMessage>
+               {errors.email && touched.email && errors.email}
+              </ErrorMessage>
+              <label htmlFor="body">
+                Dodaj treść
+              </label>
+
+              <StyledTextarea
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.body}
-              />
-              {errors.body && touched.body && errors.body}
+                name={"body"}
+              >
+
+              </StyledTextarea>
+              {/*<StyledInput*/}
+              {/*  type="text"*/}
+              {/*  name="body"*/}
+              {/*  onChange={handleChange}*/}
+              {/*  onBlur={handleBlur}*/}
+              {/*  value={values.body}*/}
+              {/*/>*/}
+              <ErrorMessage>
+                {errors.body && touched.body && errors.body}
+              </ErrorMessage>
               <StyledButton type="submit" disabled={isSubmitting}>
                 Dodaj komentarz
               </StyledButton>
@@ -104,8 +135,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onInitComments: () => dispatch(actions.initComments()),
-  onAddComment: (comment) => dispatch(actions.addComment(comment)),
+  onInitComments: () => dispatch(initComments()),
+  onAddComment: (comment) => dispatch(addComment(comment)),
 });
 
 AddComment.propTypes = {
@@ -114,4 +145,4 @@ AddComment.propTypes = {
   onAddComment: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddComment);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddComment));

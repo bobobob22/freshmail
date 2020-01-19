@@ -5,12 +5,13 @@ import { StyledButton } from './styles';
 
 
 const WishListButton = (props, ...rest) => {
-  const { children, toggleWishList } = props;
+  const { children, toggleWishList, disabled } = props;
   return (
     <StyledButton
       onClick={toggleWishList}
       onKeyPress={toggleWishList}
       type="button"
+      disabled={disabled}
       {...rest}
     >
       {children}

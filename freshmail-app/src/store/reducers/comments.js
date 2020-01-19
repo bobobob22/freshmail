@@ -23,24 +23,53 @@ const setComments = (state, action) => {
   });
 };
 
-const addWishComment = (state, action) => ({
-  ...state,
-  wishList: [
-    ...state.wishList, action.comment,
-  ],
-});
+const addWishComment = (state, action) => {
+  const isAddedToWishlist = state.wishList.filter((comment) => comment.id === action.comment.id);
 
-const removeWishComment = (state, action) => ({
-  ...state,
-  wishList: state.wishList.filter((comment) => comment.id !== action.comment.id),
-});
+  const content = Object.assign({}, state);
+  content.comments = content.comments.map(comment => {
+    const newObj = {...comment};
+    if(newObj.id === action.comment.id) {
+      newObj.isAdded = true;
+    }
+    return newObj;
+  });
+
+  if (isAddedToWishlist.length) {
+    return {
+      ...state,
+    }
+  } else {
+    return {
+      ...content,
+      wishList: [
+        ...state.wishList, action.comment,
+      ],
+    }
+  }
+};
+
+const removeWishComment = (state, action) => {
+  const content = Object.assign({}, state);
+  content.comments = content.comments.map(comment => {
+    const newObj = {...comment};
+    if(newObj.id === action.comment.id) {
+      newObj.isAdded = false;
+    }
+    return newObj;
+  });
+
+  return {
+    ...content,
+    wishList: state.wishList.filter((comment) => comment.id !== action.comment.id),
+  }
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_COMMENT: return addComment(state, action);
     case actionTypes.ADD_WISH_COMMENT: return addWishComment(state, action);
     case actionTypes.REMOVE_WISH_COMMENT: return removeWishComment(state, action);
-    // case actionTypes.INIT_COMMENTS: return initComments(state, action);
     case actionTypes.SET_COMMENTS: return setComments(state, action);
     default: return state;
   }
