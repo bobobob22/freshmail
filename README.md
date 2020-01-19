@@ -14,3 +14,7 @@ clone project, go to main folder and run in command line
 and then
 
 ```yarn start ```
+
+to run tests you have to run in command line
+
+```yarn test```
