@@ -29,14 +29,17 @@ class CommentTile extends Component {
         <CommentTileContent>
           <CommentTitle>
             Nazwa:
+            {' '}
             {name}
           </CommentTitle>
           <CommentInfo>
             Email:
+            {' '}
             {email}
           </CommentInfo>
           <CommentInfo>
             Treść:
+            {' '}
             {body.substr(0, 20)}
           </CommentInfo>
           <ButtonWrapper>
@@ -72,6 +75,7 @@ CommentTile.propTypes = {
     name: PropTypes.string,
     body: PropTypes.string,
     email: PropTypes.string,
+    isAdded: PropTypes.bool,
   }),
   isWishlist: PropTypes.bool,
   onAddToWishlist: PropTypes.func,

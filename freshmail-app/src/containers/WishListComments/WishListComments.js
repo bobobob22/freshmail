@@ -19,7 +19,7 @@ class WishListComments extends Component {
     if (!wishList.length) {
       return (
         <p>Brak ulubionych komentarzy</p>
-      )
+      );
     }
 
     return (
@@ -36,8 +36,12 @@ const mapStateToProps = (state) => ({
 });
 
 WishListComments.propTypes = {
-  wishList: PropTypes.array,
-  comments: PropTypes.array,
+  wishList: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object])
+  ),
+  comments: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object])
+  ),
   onInitComments: PropTypes.func,
 };
 

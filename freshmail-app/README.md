@@ -1,3 +1,17 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+App
+======
 
-To run you have to go to freshmail-directory and run ```yarn install``` then ```yarn start```
+React frontend application for freshmail.
+
+
+Run application
+---------------
+
+* Frontend
+clone project, go to main folder and run in command line
+
+```yarn install```
+
+and then
+
+```yarn start ```

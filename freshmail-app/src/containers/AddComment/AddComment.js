@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import {initComments, addComment } from 'store/actions';
+import { initComments, addComment } from 'store/actions';
 
 import { Root, StyledInput, StyledTextarea, StyledButton, ErrorMessage } from './styles';
 
@@ -31,10 +31,6 @@ const schema = yup.object({
 });
 
 class AddComment extends PureComponent {
-  state = {
-    wasSend: false,
-  };
-
   componentDidMount() {
     const { comments, onInitComments } = this.props;
     if (comments && !comments.length) {
@@ -71,12 +67,14 @@ class AddComment extends PureComponent {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
+              /* eslint-disable prefer-destructuring */
               <label htmlFor="name">
                 Nazwa
               </label>
               <StyledInput
                 type="text"
                 name="name"
+                id="name"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.name}
@@ -90,32 +88,24 @@ class AddComment extends PureComponent {
               <StyledInput
                 type="email"
                 name="email"
+                id="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
               />
               <ErrorMessage>
-               {errors.email && touched.email && errors.email}
+                {errors.email && touched.email && errors.email}
               </ErrorMessage>
               <label htmlFor="body">
                 Dodaj treść
               </label>
-
               <StyledTextarea
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.body}
-                name={"body"}
-              >
-
-              </StyledTextarea>
-              {/*<StyledInput*/}
-              {/*  type="text"*/}
-              {/*  name="body"*/}
-              {/*  onChange={handleChange}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  value={values.body}*/}
-              {/*/>*/}
+                name="body"
+                id="body"
+              />
               <ErrorMessage>
                 {errors.body && touched.body && errors.body}
               </ErrorMessage>
@@ -140,9 +130,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AddComment.propTypes = {
-  comments: PropTypes.array,
+  comments: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object])
+  ),
   onInitComments: PropTypes.func,
   onAddComment: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddComment));

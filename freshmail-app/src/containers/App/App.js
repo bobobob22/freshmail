@@ -20,11 +20,3 @@ const App = () => (
 );
 
 export default App;
-
-//Todo -> Sprawdzenie formuka
-//Todo -> Sprawdzenie styled components
-//Todo sprawdzenie zbednych paczek
-//Todo w nawigacji chyba nie jest potrzebny props
-//Todo -> eslint
-//Todo -> testy
-//Todo wyglad, responsywnosc

@@ -22,7 +22,7 @@ class HomePage extends Component {
     return (
       <>
         <HomePageTitle>Lista pobranych komentarzy: </HomePageTitle>
-        <CommentsList comments={comments} isWishlist={false}/>
+        <CommentsList comments={comments} />
       </>
     );
   }
@@ -37,7 +37,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 HomePage.propTypes = {
-  comments: PropTypes.array,
+  comments: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object])
+  ),
   onInitComments: PropTypes.func,
 };
 

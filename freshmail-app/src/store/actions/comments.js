@@ -22,6 +22,7 @@ export const removeWishListComment = (comment) => ({
   comment,
 });
 
+/* eslint-disable arrow-body-style */
 export const initComments = () => {
   return (dispatch) => {
     const url = 'https://jsonplaceholder.typicode.com/comments';

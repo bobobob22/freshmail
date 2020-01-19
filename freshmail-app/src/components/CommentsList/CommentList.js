@@ -20,7 +20,9 @@ const CommentsList = (props) => {
 
 CommentsList.propTypes = {
   isWishlist: PropTypes.bool,
-  comments: PropTypes.array,
+  comments: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object])
+  ),
 };
 
 export default CommentsList;
